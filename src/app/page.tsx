@@ -1,14 +1,14 @@
 "use client"
 
-import styles from './page.module.css'
-import {ChakraProvider, Heading} from '@chakra-ui/react'
+import { ChakraProvider, Heading } from "@chakra-ui/react"
+import styles from "./page.module.css"
 
 export default function Home() {
-  return (
-    <ChakraProvider>
-      <main className={styles.main}>
-        <Heading as="h1">Hello world!</Heading>
-      </main>
-    </ChakraProvider>
-  )
+    return (
+        <ChakraProvider>
+            <main className={styles.main}>
+                <Heading as="h1">Hello world!</Heading>
+            </main>
+        </ChakraProvider>
+    )
 }
