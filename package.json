@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/supabase-adapter": "^0.1.2",
+    "@chakra-ui/provider": "^2.3.0",
     "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@supabase/auth-helpers-nextjs": "^0.7.2",
+    "@supabase/supabase-js": "^2.25.0",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
@@ -33,6 +37,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "prisma": "^4.15.0",
+    "supabase": "^1.68.6"
   }
 }

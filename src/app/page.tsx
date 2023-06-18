@@ -1,14 +1,16 @@
 "use client"
 
-import { ChakraProvider, Heading } from "@chakra-ui/react"
-import styles from "./page.module.css"
+import { ChakraProvider } from "@chakra-ui/react"
+import LoginScreen from "./LoginScreen"
 
-export default function Home() {
+function Main() {
     return (
         <ChakraProvider>
-            <main className={styles.main}>
-                <Heading as="h1">Hello world!</Heading>
+            <main>
+                <LoginScreen />
             </main>
         </ChakraProvider>
     )
 }
+
+export default Main
