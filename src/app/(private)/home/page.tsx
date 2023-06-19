@@ -2,19 +2,7 @@
 
 import { getCookies } from "cookies-next"
 
-import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Stack,
-    Link,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-} from "@chakra-ui/react"
+import { Flex, Stack, Heading, Text, useColorModeValue } from "@chakra-ui/react"
 
 export default function HomePage() {
     const jobTitle = localStorage.getItem("jobTitle")
@@ -38,6 +26,4 @@ export default function HomePage() {
             </Stack>
         </Flex>
     )
-    const authCookie = getCookies()
-    return <h1>{JSON.stringify(authCookie)}</h1>
 }

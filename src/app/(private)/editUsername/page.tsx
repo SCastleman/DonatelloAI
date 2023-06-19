@@ -7,14 +7,11 @@ import {
     FormLabel,
     Input,
     Stack,
-    Link,
     Button,
     Heading,
-    Text,
     useColorModeValue,
 } from "@chakra-ui/react"
 import { useState } from "react"
-import PrivateLayout from "../layout"
 
 export default function JobTitleChangeCard() {
     const [username, setUsername] = useState("")

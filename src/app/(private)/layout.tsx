@@ -2,14 +2,7 @@
 
 "use client"
 
-import {
-    Box,
-    Flex,
-    HStack,
-    Link,
-    useDisclosure,
-    useColorModeValue,
-} from "@chakra-ui/react"
+import { Box, Flex, HStack, Link, useColorModeValue } from "@chakra-ui/react"
 import NextLink from "next/link"
 
 type LinkList = ["Home", "Change Username", "Change Job Title", "Query"]

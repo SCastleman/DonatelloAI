@@ -1,6 +1,6 @@
 "use client"
 
-import { ApolloClient, InMemoryCache, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import { gql } from "graphql-tag"
 
 export default function QueryCard() {
