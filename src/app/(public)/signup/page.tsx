@@ -17,12 +17,13 @@ import { useState } from "react"
 import NextLink from "next/link"
 
 type SignUpType = (email: string, password: string) => void
+type SignUpCardProps = { handleSignUp: SignUpType }
 type ErrorObject = { email?: string; password?: string }
 
 const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-export default function SignupCard(props: { handleSignUp: SignUpType }) {
+export default function SignupCard(props: SignUpCardProps) {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [errors, setErrors] = useState<ErrorObject>({})

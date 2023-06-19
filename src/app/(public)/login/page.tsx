@@ -19,8 +19,9 @@ import { getCookie } from "cookies-next"
 import NextLink from "next/link"
 
 type SignInType = (email: string, password: string) => void
+type LoginCardProps = { handleSignIn: SignInType }
 
-export default function LoginCard(props: { handleSignIn: SignInType }) {
+export default function LoginCard(props: LoginCardProps) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { handleSignIn } = props
