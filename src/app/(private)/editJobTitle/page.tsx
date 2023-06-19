@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Flex,
     Box,
@@ -5,14 +7,15 @@ import {
     FormLabel,
     Input,
     Stack,
-    Link,
     Button,
     Heading,
-    Text,
     useColorModeValue,
 } from "@chakra-ui/react"
+import { useState } from "react"
 
-export default function LoginCard() {
+export default function JobTitleChangeCard() {
+    const [jobTitle, setJobTitle] = useState("")
+
     return (
         <Flex
             minH="100vh"
@@ -22,7 +25,9 @@ export default function LoginCard() {
         >
             <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
                 <Stack align="center">
-                    <Heading fontSize="4xl">Meet Donatello.ai</Heading>
+                    <Heading fontSize="4xl">
+                        Set your preferred job title
+                    </Heading>
                 </Stack>
                 <Box
                     rounded="lg"
@@ -31,13 +36,11 @@ export default function LoginCard() {
                     p={8}
                 >
                     <Stack spacing={4}>
-                        <FormControl id="email">
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
-                        <FormControl id="password">
-                            <FormLabel>Password</FormLabel>
-                            <Input type="password" />
+                        <FormControl id="jobTitle">
+                            <FormLabel>Job Title</FormLabel>
+                            <Input
+                                onChange={(e) => setJobTitle(e.target.value)}
+                            />
                         </FormControl>
                         <Stack spacing={10}>
                             <Stack
@@ -51,17 +54,12 @@ export default function LoginCard() {
                                 _hover={{
                                     bg: "blue.500",
                                 }}
+                                onClick={() =>
+                                    localStorage.setItem("jobTitle", jobTitle)
+                                }
                             >
-                                Sign in
+                                Set Title
                             </Button>
-                            <Stack>
-                                <Text>
-                                    Don&apost have an account?{" "}
-                                    <Link href="/signup" color="blue.400">
-                                        Sign up
-                                    </Link>
-                                </Text>
-                            </Stack>
                         </Stack>
                     </Stack>
                 </Box>

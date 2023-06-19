@@ -7,14 +7,13 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("db.mmfpwphgxlydoomyisvw.supabase.co")
+  url      = "postgres://postgres:XHMfHAI6IZCYx9xk@db.mmfpwphgxlydoomyisvw.supabase.co:5432/postgres"
+  
 }
 
-model User {
-  id                  String @id @default(cuid())
-  username            String
-  email               String
-  title               String
-  accessToken         String?
-  accessTokenExpires  String?
+model Users {
+  user_id                   String @db.Uuid @id
+  username                  String?
+  email                     String
+  title                     String?
 }

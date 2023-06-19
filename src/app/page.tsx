@@ -1,16 +1,17 @@
 "use client"
 
-import { ChakraProvider } from "@chakra-ui/react"
-import LoginScreen from "./LoginScreen"
+import { redirect } from "next/navigation"
+import { getCookies } from "cookies-next"
 
-function Main() {
-    return (
-        <ChakraProvider>
-            <main>
-                <LoginScreen />
-            </main>
-        </ChakraProvider>
-    )
+export default async function Main() {
+    const authCookie = getCookies()
+    if (Object.keys(authCookie).length === 0) {
+        redirect("/login")
+    } else {
+        redirect("/home")
+    }
+
+    // if (userLoggedIn) return
+    // do something
+    // redirect("/login")
 }
-
-export default Main
