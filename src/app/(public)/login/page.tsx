@@ -7,7 +7,6 @@ import {
     FormLabel,
     Input,
     Stack,
-    Link,
     Button,
     Heading,
     Text,
@@ -19,12 +18,12 @@ import { getCookie } from "cookies-next"
 import NextLink from "next/link"
 
 type SignInType = (email: string, password: string) => void
-type LoginCardProps = { handleSignIn: SignInType }
+type LoginCardParams = { handleSignIn: SignInType }
 
-export default function LoginCard(props: LoginCardProps) {
+export default function LoginCard({ params }: { params: LoginCardParams }) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const { handleSignIn } = props
+    const { handleSignIn } = params
 
     const authCookie = getCookie("sb-mmfpwphgxlydoomyisvw-auth-token")
     if (authCookie) {
@@ -85,7 +84,7 @@ export default function LoginCard(props: LoginCardProps) {
                                 <Text>
                                     Don&apos;t have an account?{" "}
                                     <NextLink href="/signup" passHref>
-                                        <Link color="blue.400">Sign up</Link>
+                                        <Text color="blue.400">Sign up</Text>
                                     </NextLink>
                                 </Text>
                             </Stack>

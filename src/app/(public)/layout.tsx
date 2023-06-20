@@ -22,14 +22,13 @@ export default function AuthWrapper() {
             email,
             password,
             options: {
-                emailRedirectTo: `${location.origin}/auth/callback/signup`,
+                emailRedirectTo: `${window.location.origin}/auth/callback/signup`,
             },
         })
         router.refresh()
     }
 
     const handleSignIn = async (email: string, password: string) => {
-        console.log("signing in!")
         await supabase.auth.signInWithPassword({
             email,
             password,
@@ -37,7 +36,6 @@ export default function AuthWrapper() {
         redirect("/")
     }
 
-    if (pathName === "/login")
-        return <LoginScreen handleSignIn={handleSignIn} />
-    return <SignupCard handleSignUp={handleSignUp} />
+    if (pathName === "/login") return <LoginScreen params={{ handleSignIn }} />
+    return <SignupCard params={{ handleSignUp }} />
 }

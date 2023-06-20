@@ -1,12 +1,24 @@
 "use client"
 
-import { getCookies } from "cookies-next"
-
 import { Flex, Stack, Heading, Text, useColorModeValue } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 
 export default function HomePage() {
-    const jobTitle = localStorage.getItem("jobTitle")
-    const username = localStorage.getItem("username")
+    const [jobTitle, setJobTitle] = useState("")
+    const [username, setUsername] = useState("")
+
+    useEffect(() => {
+        // Perform localStorage action
+        const tempJobTitle = localStorage.getItem("jobTitle")
+        const tempUsername = localStorage.getItem("username")
+        if (tempJobTitle) {
+            setJobTitle(tempJobTitle)
+        }
+        if (tempUsername) {
+            setUsername(tempUsername)
+        }
+    }, [])
+
     return (
         <Flex
             minH="100vh"

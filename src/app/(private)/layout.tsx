@@ -19,6 +19,7 @@ export default function PrivateLayout({
 }: {
     children: React.ReactNode
 }) {
+    const bg = useColorModeValue("gray.200", "gray.700")
     return (
         <>
             <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -41,10 +42,7 @@ export default function PrivateLayout({
                                         rounded="md"
                                         _hover={{
                                             textDecoration: "none",
-                                            bg: useColorModeValue(
-                                                "gray.200",
-                                                "gray.700"
-                                            ),
+                                            bg,
                                         }}
                                     >
                                         {link}

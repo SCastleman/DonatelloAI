@@ -11,26 +11,24 @@ import {
     Heading,
     useColorModeValue,
     Text,
-    Link,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import NextLink from "next/link"
 
 type SignUpType = (email: string, password: string) => void
-type SignUpCardProps = { handleSignUp: SignUpType }
+type SignUpCardParams = { handleSignUp: SignUpType }
 type ErrorObject = { email?: string; password?: string }
 
 const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
-export default function SignupCard(props: SignUpCardProps) {
+export default function SignupCard({ params }: { params: SignUpCardParams }) {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [errors, setErrors] = useState<ErrorObject>({})
-    const { handleSignUp } = props
+    const { handleSignUp } = params
 
     const validatePassword = (pw: string) => {
-        console.log("pw", pw)
         if (pw.length < 6) {
             setErrors({
                 ...errors,
@@ -48,8 +46,6 @@ export default function SignupCard(props: SignUpCardProps) {
         else setErrors({ ...errors, email: "" })
         setEmail(em)
     }
-
-    console.log(errors)
 
     return (
         <Flex
@@ -115,7 +111,7 @@ export default function SignupCard(props: SignUpCardProps) {
                                 <Text>
                                     Already have an account?{" "}
                                     <NextLink href="/login" passHref>
-                                        <Link color="blue.400">Log in</Link>
+                                        <Text color="blue.400">Log in</Text>
                                     </NextLink>
                                 </Text>
                             </Stack>

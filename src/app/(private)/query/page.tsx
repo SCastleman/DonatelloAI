@@ -18,6 +18,6 @@ export default function QueryCard() {
         }
     `
     const { loading, error, data } = useQuery(ANIME)
-    console.log("cause", error?.cause)
+    console.log(loading, error, data)
     return <h1>Query page</h1>
 }
