@@ -37,7 +37,7 @@ export default function JobTitleChangeCard() {
                 >
                     <Stack spacing={4}>
                         <FormControl id="jobTitle">
-                            <FormLabel>Job Title</FormLabel>
+                            <FormLabel>Username</FormLabel>
                             <Input
                                 onChange={(e) => setUsername(e.target.value)}
                             />
