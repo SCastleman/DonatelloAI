@@ -8,7 +8,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 const inter = Inter({ subsets: ["latin"] })
 
 const client = new ApolloClient({
-    uri: "https://anilist.co/graphiql",
+    uri: "api/query",
     cache: new InMemoryCache(),
 })
 

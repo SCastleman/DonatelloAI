@@ -11,11 +11,18 @@ import {
     Heading,
     useColorModeValue,
     Text,
+    Alert,
+    AlertIcon,
+    AlertDescription,
+    AlertTitle,
+    useDisclosure,
+    CloseButton,
 } from "@chakra-ui/react"
 import { useState } from "react"
 import NextLink from "next/link"
+import { AuthResponse } from "@supabase/supabase-js"
 
-type SignUpType = (email: string, password: string) => void
+type SignUpType = (email: string, password: string) => Promise<AuthResponse>
 type SignUpCardParams = { handleSignUp: SignUpType }
 type ErrorObject = { email?: string; password?: string }
 
@@ -27,6 +34,14 @@ export default function SignupCard({ params }: { params: SignUpCardParams }) {
     const [password, setPassword] = useState<string>("")
     const [errors, setErrors] = useState<ErrorObject>({})
     const { handleSignUp } = params
+
+    const {
+        isOpen: successIsVisible,
+        onOpen,
+        onClose,
+    } = useDisclosure({
+        defaultIsOpen: false,
+    })
 
     const validatePassword = (pw: string) => {
         if (pw.length < 6) {
@@ -47,6 +62,11 @@ export default function SignupCard({ params }: { params: SignUpCardParams }) {
         setEmail(em)
     }
 
+    const signUp = (signUpEmail: string, signUpPassword: string) => {
+        handleSignUp(signUpEmail, signUpPassword).then((res) => {
+            if (!res.error) onOpen()
+        })
+    }
     return (
         <Flex
             minH="100vh"
@@ -55,6 +75,25 @@ export default function SignupCard({ params }: { params: SignUpCardParams }) {
             bg={useColorModeValue("gray.50", "gray.800")}
         >
             <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+                {successIsVisible && (
+                    <Alert status="success">
+                        <AlertIcon />
+                        <Box>
+                            <AlertTitle>Success!</AlertTitle>
+                            <AlertDescription>
+                                Your request was received! Check your email to
+                                finalise the sign up process.
+                            </AlertDescription>
+                        </Box>
+                        <CloseButton
+                            alignSelf="flex-start"
+                            position="relative"
+                            right={-1}
+                            top={-1}
+                            onClick={onClose}
+                        />
+                    </Alert>
+                )}
                 <Stack align="center">
                     <Heading fontSize="4xl">
                         New around here? We&apos;re happy to have you.
@@ -103,7 +142,13 @@ export default function SignupCard({ params }: { params: SignUpCardParams }) {
                                 _hover={{
                                     bg: "blue.500",
                                 }}
-                                onClick={() => handleSignUp(email, password)}
+                                onClick={() => signUp(email, password)}
+                                isDisabled={
+                                    !email ||
+                                    !password ||
+                                    !!errors.email ||
+                                    !!errors.password
+                                }
                             >
                                 Sign Up
                             </Button>

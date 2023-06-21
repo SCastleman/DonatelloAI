@@ -2,7 +2,8 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import type { Database } from "lib/database.types"
-import { redirect, usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { AuthResponse } from "@supabase/supabase-js"
 import LoginScreen from "./login/page"
 import SignupCard from "./signup/page"
 
@@ -14,27 +15,28 @@ const supabase = createClientComponentClient<Database>()
 // }
 
 export default function AuthWrapper() {
-    const router = useRouter()
     const pathName = usePathname()
 
-    const handleSignUp = async (email: string, password: string) => {
-        await supabase.auth.signUp({
+    const handleSignUp = async (
+        email: string,
+        password: string
+    ): Promise<AuthResponse> =>
+        supabase.auth.signUp({
             email,
             password,
             options: {
                 emailRedirectTo: `${window.location.origin}/auth/callback/signup`,
             },
         })
-        router.refresh()
-    }
 
-    const handleSignIn = async (email: string, password: string) => {
-        await supabase.auth.signInWithPassword({
+    const handleSignIn = async (
+        email: string,
+        password: string
+    ): Promise<AuthResponse> =>
+        supabase.auth.signInWithPassword({
             email,
             password,
         })
-        redirect("/")
-    }
 
     if (pathName === "/login") return <LoginScreen params={{ handleSignIn }} />
     return <SignupCard params={{ handleSignUp }} />

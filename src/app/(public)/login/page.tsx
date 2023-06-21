@@ -11,13 +11,19 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    useDisclosure,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+    CloseButton,
 } from "@chakra-ui/react"
 import { useState } from "react"
-import { redirect } from "next/navigation"
-import { getCookie } from "cookies-next"
+import { useRouter } from "next/navigation"
 import NextLink from "next/link"
+import { AuthResponse } from "@supabase/supabase-js"
 
-type SignInType = (email: string, password: string) => void
+type SignInType = (email: string, password: string) => Promise<AuthResponse>
 type LoginCardParams = { handleSignIn: SignInType }
 
 export default function LoginCard({ params }: { params: LoginCardParams }) {
@@ -25,9 +31,21 @@ export default function LoginCard({ params }: { params: LoginCardParams }) {
     const [password, setPassword] = useState("")
     const { handleSignIn } = params
 
-    const authCookie = getCookie("sb-mmfpwphgxlydoomyisvw-auth-token")
-    if (authCookie) {
-        redirect("/home")
+    const {
+        isOpen: isVisible,
+        onOpen,
+        onClose,
+    } = useDisclosure({
+        defaultIsOpen: false,
+    })
+
+    const router = useRouter()
+
+    const login = (signInEmail: string, signInPassword: string) => {
+        handleSignIn(signInEmail, signInPassword).then((res) => {
+            if (res.error) onOpen()
+            else router.push("/home")
+        })
     }
 
     return (
@@ -38,6 +56,25 @@ export default function LoginCard({ params }: { params: LoginCardParams }) {
             bg={useColorModeValue("gray.50", "gray.800")}
         >
             <Stack spacing={8} mx="auto" maxW="lg" py={12} px={6}>
+                {isVisible && (
+                    <Alert status="error">
+                        <AlertIcon />
+                        <Box>
+                            <AlertTitle>Success!</AlertTitle>
+                            <AlertDescription>
+                                Sorry, there was a problem signing you in. Check
+                                your username and password, then try again.
+                            </AlertDescription>
+                        </Box>
+                        <CloseButton
+                            alignSelf="flex-start"
+                            position="relative"
+                            right={-1}
+                            top={-1}
+                            onClick={onClose}
+                        />
+                    </Alert>
+                )}
                 <Stack align="center">
                     <Heading fontSize="4xl">
                         Meet Donatello.ai - next level turtle generation
@@ -76,7 +113,7 @@ export default function LoginCard({ params }: { params: LoginCardParams }) {
                                 _hover={{
                                     bg: "blue.500",
                                 }}
-                                onClick={() => handleSignIn(email, password)}
+                                onClick={() => login(email, password)}
                             >
                                 Sign in
                             </Button>

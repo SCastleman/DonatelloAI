@@ -2,29 +2,45 @@
 
 "use client"
 
-import { Box, Flex, HStack, Link, useColorModeValue } from "@chakra-ui/react"
+import { Box, Flex, HStack, Text, useColorModeValue } from "@chakra-ui/react"
+import { getCookies } from "cookies-next"
 import NextLink from "next/link"
+import { redirect } from "next/navigation"
 
-type LinkList = ["Home", "Change Username", "Change Job Title", "Query"]
-const Links: LinkList = ["Home", "Change Username", "Change Job Title", "Query"]
+type LinkList = ["Home", "Change Username", "Change Job Title", "Anime List"]
+const Links: LinkList = [
+    "Home",
+    "Change Username",
+    "Change Job Title",
+    "Anime List",
+]
 const linkHrefs = {
     Home: "home",
     "Change Username": "editUsername",
     "Change Job Title": "editJobTitle",
-    Query: "query",
+    "Anime List": "query",
 }
 
+// const supabase = createClientComponentClient<Database>()
 export default function PrivateLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
+    // const router = useRouter()
+
+    // const handleSignOut = async () => {
+    //    await supabase.auth.signOut()
+    //    router.push("/")
+    // }
     const bg = useColorModeValue("gray.200", "gray.700")
+    const authCookie = getCookies()
+    if (!authCookie) redirect("/login")
     return (
         <>
             <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
                 <Flex h={16} alignItems="center" justifyContent="space-between">
-                    <HStack spacing={8} alignItems="center">
+                    <HStack spacing="auto" alignItems="center">
                         <HStack
                             as="nav"
                             spacing={4}
@@ -36,7 +52,7 @@ export default function PrivateLayout({
                                     passHref
                                     key={link}
                                 >
-                                    <Link
+                                    <Text
                                         px={2}
                                         py={1}
                                         rounded="md"
@@ -46,7 +62,7 @@ export default function PrivateLayout({
                                         }}
                                     >
                                         {link}
-                                    </Link>
+                                    </Text>
                                 </NextLink>
                             ))}
                         </HStack>
